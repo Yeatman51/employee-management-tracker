@@ -1,0 +1,23 @@
+{
+  "name": "employee-management-tracker",
+  "version": "1.0.0",
+  "description": "Company employee tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yeatman51/employee-management-tracker.git"
+  },
+  "author": "Yeatman51",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yeatman51/employee-management-tracker/issues"
+  },
+  "homepage": "https://github.com/Yeatman51/employee-management-tracker#readme",
+  "dependencies": {
+    "inquirer": "^8.0.0",
+    "mysql": "^2.18.1"
+  }
+}
