@@ -14,9 +14,14 @@ Live Demo:
 
 ## Description:
 
+This is a Terminal application that will allow you to View, Add, and Remove Departments, Employees, and Roles in one convenient place. 
 
-![command-line-prompt.png](img/command-line-prompt.png)
+With the help of an SQL database all of your inputs will be saved and recorded for future updates.
 
-The image below shows a series of test that of all past for this application
 
-![command-line-test.png](img/command-line-test.png) 
+![employee-management-tracker](employee-management-tracker-1.png)
+
+
+![employee-management-tracker](employee-management-tracker-2.png) 
+![employee-management-tracker](employee-management-tracker-3.png) 
+![employee-management-tracker](employee-management-tracker-4.png) 
