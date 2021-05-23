@@ -19,9 +19,9 @@ This is a Terminal application that will allow you to View, Add, and Remove Depa
 With the help of an SQL database all of your inputs will be saved and recorded for future updates.
 
 
-![employee-management-tracker](employee-management-tracker-1.png)
+![employee-management-tracker](img/employee-management-tracker-1.png)
 
 
-![employee-management-tracker](employee-management-tracker-2.png) 
-![employee-management-tracker](employee-management-tracker-3.png) 
-![employee-management-tracker](employee-management-tracker-4.png) 
+![employee-management-tracker](img/employee-management-tracker-2.png) 
+![employee-management-tracker](img/employee-management-tracker-3.png) 
+![employee-management-tracker](img/employee-management-tracker-4.png) 
