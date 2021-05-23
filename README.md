@@ -8,7 +8,7 @@ Repository: https://github.com/Yeatman51/employee-management-tracker
 Video displaying the terminal functionality available with the link below 
 (After clicking on the link below click on the button "View raw" to see the video)
 
-Live Demo: 
+Video Demo: 
 
 ---
 
