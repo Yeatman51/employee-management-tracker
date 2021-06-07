@@ -1,4 +1,6 @@
+
 class Update {
+
     static async create(connection, table, data) {
         await connection.query("INSERT INTO " + table + " SET ?", data, (err, res) => {
             if (err) throw err;
