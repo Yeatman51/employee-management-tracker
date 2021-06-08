@@ -1,15 +1,15 @@
-class CRUD {
+
+class Update {
+
     static async create(connection, table, data) {
         await connection.query("INSERT INTO " + table + " SET ?", data, (err, res) => {
             if (err) throw err;
-            //console.log(`${res.affectedRows} ${table} inserted!\n`);
         });
     }
 
     static async read(connection, table, callback) {
         const query = await connection.query("SELECT * FROM " + table, (err, res) => {
             if (err) throw err;
-            //console.log(res);
             callback(res);
         });
     }
@@ -23,7 +23,6 @@ class CRUD {
         console.log(columns);
         const query = await connection.query("SELECT " + columns + " FROM " + table + " WHERE " + condition, (err, res) => {
             if (err) throw err;
-            //console.log(res);
             callback(res);
         });
     }
@@ -37,7 +36,6 @@ class CRUD {
 
         await connection.query("SELECT * FROM " + table + " WHERE " + conditions, (err, res) => {
             if (err) throw err;
-            //console.log(res);
             callback(res);
         });
     }
@@ -51,7 +49,6 @@ class CRUD {
 
         await connection.query("UPDATE " + table + " SET ? WHERE " + conditions, data[0], (err, res) => {
             if (err) throw err;
-            //console.log(`${res.affectedRows} ${table} updated!\n`);
         });
     }
 
@@ -64,9 +61,8 @@ class CRUD {
 
         const query = await connection.query("DELETE FROM " + table + " WHERE " + conditions, (err, res) => {
             if (err) throw err;
-            //console.log(`${res.affectedRows} ${table} deleted!\n`);
         });
     }
 };
 
-module.exports = CRUD;
+module.exports = Update;
