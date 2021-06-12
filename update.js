@@ -11,6 +11,7 @@ class Update {
         const query = await connection.query("SELECT * FROM " + table, (err, res) => {
             if (err) throw err;
             callback(res);
+            console.log(callback);
         });
     }
 
@@ -19,8 +20,8 @@ class Update {
         for(let i = 0; i < data.length; i++){
             columns += data[i] + ", ";
         }
+
         columns = columns.slice(0,-2);
-        console.log(columns);
         const query = await connection.query("SELECT " + columns + " FROM " + table + " WHERE " + condition, (err, res) => {
             if (err) throw err;
             callback(res);
@@ -57,6 +58,7 @@ class Update {
         for (const [key, value] of Object.entries(data)) {
             conditions += `${key} = '${value}' AND `;
         }
+
         conditions = conditions.slice(0,-5);
 
         const query = await connection.query("DELETE FROM " + table + " WHERE " + conditions, (err, res) => {
