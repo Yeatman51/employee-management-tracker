@@ -1,3 +1,4 @@
+// Class Update required/referenced in index.js
 
 class Update {
 
@@ -11,7 +12,7 @@ class Update {
         const query = await connection.query("SELECT * FROM " + table, (err, res) => {
             if (err) throw err;
             callback(res);
-            console.log(callback);
+            // console.log(callback);
         });
     }
 
@@ -28,6 +29,7 @@ class Update {
         });
     }
 
+    // Key value pair
     static async search(connection, table, data, callback) {
         let conditions = "";
         for (const [key, value] of Object.entries(data)) {
