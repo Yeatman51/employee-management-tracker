@@ -1,5 +1,4 @@
 // Class Update required/referenced in index.js
-
 class Update {
 
     static async create(connection, table, data) {
@@ -12,7 +11,6 @@ class Update {
         const query = await connection.query("SELECT * FROM " + table, (err, res) => {
             if (err) throw err;
             callback(res);
-            // console.log(callback);
         });
     }
 
@@ -49,7 +47,6 @@ class Update {
             conditions += `${key} = '${value}' AND `;
         }
         conditions = conditions.slice(0,-5);
-
         await connection.query("UPDATE " + table + " SET ? WHERE " + conditions, data[0], (err, res) => {
             if (err) throw err;
         });
@@ -62,7 +59,6 @@ class Update {
         }
 
         conditions = conditions.slice(0,-5);
-
         const query = await connection.query("DELETE FROM " + table + " WHERE " + conditions, (err, res) => {
             if (err) throw err;
         });

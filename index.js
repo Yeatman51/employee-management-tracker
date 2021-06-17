@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
 // const connection = require("./connection");
-const Update = require('./update.js')
+const update = require('./update.js')
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -45,7 +45,7 @@ async function prompts(){
   switch (choice) {
 // View department
     case "View Departments":
-      crud.read(connection, "department", (data) => {
+      update.read(connection, "department", (data) => {
         console.table(data);
         prompts();
       });
@@ -62,14 +62,14 @@ async function prompts(){
         },
       ])
       .then((responses) => {
-          crud.create(connection, "department", {department_name: responses.name});
+        update.create(connection, "department", {department_name: responses.name});
           prompts();
       });
       break;
 
 // Remove Department
     case "Remove Department":
-      crud.read(connection, "department", (data) => {
+      update.read(connection, "department", (data) => {
         let department_list = [];
         for(let i = 0; i < data.length; i++){
           department_list.push(data[i].department_name);
@@ -84,7 +84,7 @@ async function prompts(){
           },
         ])
         .then((responses) => {
-          crud.delete(connection, "department", {department_name: responses.department});
+          update.delete(connection, "department", {department_name: responses.department});
           prompts();
         });
       });
@@ -98,7 +98,7 @@ async function prompts(){
         "salary",
         "department_name"
       ];
-      crud.join(connection, ["employee_role","department"], request, "employee_role.department_id = department.id", (data) => {
+      update.join(connection, ["employee_role","department"], request, "employee_role.department_id = department.id", (data) => {
         console.table(data);
         prompts();
       });
@@ -106,7 +106,7 @@ async function prompts(){
 
 // Add Role
     case "Add Role":
-      crud.read(connection, "department", (data) => {
+      update.read(connection, "department", (data) => {
         let department_list = [];
         for(let i = 0; i < data.length; i++){
           department_list.push(data[i].department_name);
@@ -132,8 +132,8 @@ async function prompts(){
         ])
         .then((responses) => {
           // Search for the department ID
-          crud.search(connection, "department", {department_name: responses.department}, (res) => {
-            crud.create(connection, "employee_role", {title: responses.title, salary: parseFloat(responses.salary), department_id: res[0].id});
+          update.search(connection, "department", {department_name: responses.department}, (res) => {
+            update.create(connection, "employee_role", {title: responses.title, salary: parseFloat(responses.salary), department_id: res[0].id});
             prompts();
           });
         });
@@ -142,7 +142,7 @@ async function prompts(){
 
 // Remove Role
     case "Remove Role":
-      crud.read(connection, "employee_role", (data) => {
+      update.read(connection, "employee_role", (data) => {
         let role_list = [];
         for(let i = 0; i < data.length; i++){
           role_list.push(data[i].title);
@@ -157,7 +157,7 @@ async function prompts(){
           },
         ])
         .then((responses) => {
-          crud.delete(connection, "employee_role", {title: responses.role});
+          update.delete(connection, "employee_role", {title: responses.role});
           prompts();
         });
       });
@@ -175,7 +175,7 @@ async function prompts(){
         "manager_id",
         "department_name"
       ];
-      crud.join(connection, ["employee","employee_role","department"], emp_request, "employee.role_id = employee_role.id AND employee_role.department_id = department.id", (data) => {
+      update.join(connection, ["employee","employee_role","department"], emp_request, "employee.role_id = employee_role.id AND employee_role.department_id = department.id", (data) => {
         console.table(data);
         prompts();
       });
@@ -183,12 +183,12 @@ async function prompts(){
 
 // Add Employee
     case "Add Employee":
-      crud.read(connection, "employee_role", (data) => {
+      update.read(connection, "employee_role", (data) => {
         let role_list = [];
         for(let i = 0; i < data.length; i++){
           role_list.push(data[i].title);
         }
-        crud.read(connection, "employee", (data) => {
+        update.read(connection, "employee", (data) => {
           let employee_list = ["None"];
           for(let i = 0; i < data.length; i++){
             employee_list.push(data[i].first_name + " " + data[i].last_name);
@@ -219,18 +219,18 @@ async function prompts(){
             },
           ])
           .then((responses) => {
-            crud.search(connection, "employee_role", {title: responses.title}, (res) => {
+            update.search(connection, "employee_role", {title: responses.title}, (res) => {
               let role_id = res[0].id;
               if(responses.manager != "None"){
                 first_name = responses.manager.split(" ")[0];
                 last_name = responses.manager.split(" ")[1];
-                crud.search(connection, "employee", {first_name: first_name, last_name: last_name}, (res) => {
+                update.search(connection, "employee", {first_name: first_name, last_name: last_name}, (res) => {
                   let manager_id = res[0].id;
-                  crud.create(connection, "employee", {first_name: responses.firstName, last_name: responses.lastName, role_id: role_id, manager_id: manager_id});
+                  update.create(connection, "employee", {first_name: responses.firstName, last_name: responses.lastName, role_id: role_id, manager_id: manager_id});
                   prompts();
                 });
               }else{
-                crud.create(connection, "employee", {first_name: responses.firstName, last_name: responses.lastName, role_id: role_id, manager_id: null});
+                update.create(connection, "employee", {first_name: responses.firstName, last_name: responses.lastName, role_id: role_id, manager_id: null});
                 prompts();
               }
             });
@@ -241,12 +241,12 @@ async function prompts(){
 
 // Update Employee Role
     case "Update Employee Role":
-      crud.read(connection, "employee", (data) => {
+      update.read(connection, "employee", (data) => {
         let employee_list = [];
         for(let i = 0; i < data.length; i++){
           employee_list.push(data[i].first_name + " " + data[i].last_name);
         }
-        crud.read(connection, "employee_role", (data) => {
+        update.read(connection, "employee_role", (data) => {
           let role_list = [];
           for(let i = 0; i < data.length; i++){
             role_list.push(data[i].title);
@@ -269,9 +269,9 @@ async function prompts(){
           .then((res) => {
             first_name = res.name.split(" ")[0];
             last_name = res.name.split(" ")[1];
-            crud.search(connection, "employee_role", {title: res.role}, (res) => {
+            update.search(connection, "employee_role", {title: res.role}, (res) => {
               let role_id = res[0].id;
-              crud.update(connection, "employee", [{role_id: role_id},{first_name: first_name, last_name: last_name}]);
+              update.update(connection, "employee", [{role_id: role_id},{first_name: first_name, last_name: last_name}]);
               prompts();
             });
           });
@@ -281,7 +281,7 @@ async function prompts(){
 
 // Remove Employee
     case "Remove Employee":
-      crud.read(connection, "employee", (data) => {
+      update.read(connection, "employee", (data) => {
         let employee_list = [];
         for(let i = 0; i < data.length; i++){
           employee_list.push(data[i].first_name + " " + data[i].last_name);
@@ -298,7 +298,7 @@ async function prompts(){
         .then((res) => {
           let first_name = res.name.split(" ")[0];
           let last_name = res.name.split(" ")[1];
-          crud.delete(connection, "employee", {first_name: first_name, last_name: last_name});
+          update.delete(connection, "employee", {first_name: first_name, last_name: last_name});
           prompts();
         });
       });
